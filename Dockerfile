@@ -17,4 +17,7 @@ ENV POSTGRES_USERNAME= \
     POSTGRES_DBNAME="pgbouncer" \
     POSTGRES_SSLMODE="disable"
 
-CMD [ "pgbouncer_exporter", "-pgBouncer.connectionString=postgres://$POSTGRES_USERNAME:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PASSWORD/$POSTGRES_DBNAME?sslmode=$POSTGRES_SSLMODE" ]
+# this is intentionally not in the array form so that the variables get
+# expanded. Hopefully:
+# https://stackoverflow.com/questions/23071214/use-environment-variables-in-cmd
+CMD pgbouncer_exporter -pgBouncer.connectionString=postgres://$POSTGRES_USERNAME:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DBNAME?sslmode=$POSTGRES_SSLMODE
